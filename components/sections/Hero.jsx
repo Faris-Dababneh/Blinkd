@@ -1,15 +1,34 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import { Button } from '@nextui-org/react'
+import {DateRangePicker} from "@nextui-org/react";
+import {getLocalTimeZone, today} from "@internationalized/date";
+import Link from 'next/link';
 
 const Hero = () => {
+  // Default start date 1 week before current day
+  const [duration, setDuration] = useState({
+    start: null,
+    end: null,
+  });
+  
+
   return (
     <>
-      <div className='flex flex-col items-center mt-28 space-y-6'>
-        <h1 className='text-center font-extrabold text-4xl sm:text-6xl text-txt'>Kick off with a bang<br/>with <span className='bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text'>FULLSTACK</span></h1>
-        <p className='text-txt max-w-sm sm:max-w-xl text-center text-md sm:text-xl'>Build the next million dollar idea using Next.js, Tailwind, NextUI, Auth, Stripe, and Firebase</p>
-        <div className='space-x-6 pb-10'>
-          <Button className='bg-primary text-lg text-black rounded-full py-2 px-6 hover:opacity-80'>Get started</Button>
-          <button className='hover:opacity-80 bg-transparent'>Contact</button>
+      <div className='flex flex-col items-center mt-28 space-y-4'>
+        <h1 className='text-center font-extrabold text-4xl sm:text-6xl text-txt'>Caught by a coma?<br/><span className='bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text'>Know what you missed</span></h1>
+        <p className='text-txt max-w-sm sm:max-w-xl text-center text-md sm:text-xl'>Get a personalized news feed of the world while you were gone.</p>
+        <div className='flex flex-col space-y-4 py-6 items-center justify-center w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 xxl flex-wrap'>
+          <h2 className='font-bold text-lg -mb-3'>How long was your coma?</h2>
+            <DateRangePicker 
+              visibleMonths={2}
+              variant={"underlined"}
+              value={duration}
+              onChange={setDuration}
+              maxValue={today(getLocalTimeZone())}
+            />
+          
+          <Link href='/start'><Button className='bg-primary text-lg text-black rounded-full py-2 px-6 hover:opacity-80'>Get your free feed</Button></Link>
         </div>
         </div>
         <div className='flex justify-center'>

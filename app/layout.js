@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-        <body className={`${inter.className} text-txt w-full overflow-auto`}>
-          <main>
+        <body>
+          <main className={`${inter.className} text-txt w-full h-full overflow-auto`}>
             <SessionProvider>
             <NextUIProvider>
               <NavbarComponent />
@@ -24,3 +24,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+// git add .
+// git commit -m "Message"
+// git push

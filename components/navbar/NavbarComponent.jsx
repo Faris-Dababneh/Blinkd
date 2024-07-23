@@ -23,7 +23,7 @@ function NavbarComponent() {
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="border-b-1">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -32,7 +32,7 @@ function NavbarComponent() {
         <div className="mr-8">
           <Link href='/' className="text-txt">
             <BsStack size={20}/>
-            <p className="font-bold text-xl ml-2">FULLSTACK</p>
+            <p className="font-bold text-xl ml-2">ComaCatchup</p>
           </Link>
         </div>
         <NavContent />
