@@ -23,7 +23,7 @@ function NavbarComponent() {
   ];
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="mt-2">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -32,7 +32,7 @@ function NavbarComponent() {
         <div className="mr-8">
           <Link href='/' className="text-txt">
             <BsStack size={20}/>
-            <p className="font-bold text-xl ml-2">ComaCatchup</p>
+            <p className="font-bold text-xl ml-2">Blinkd</p>
           </Link>
         </div>
         <NavContent />
@@ -92,8 +92,13 @@ const NavContent = () => {
           ) : (
           <NavbarContent justify="end">
             <NavbarItem>
-              <Button as={Link} className="bg-primary text-black text-medium rounded-full" href="api/auth/signin" variant="flat">
-                Sign in
+              <Button as={Link} className="bg-transparent text-black md:text-medium -mr-4 hidden sm:flex" href="api/auth/signin" variant="flat">
+                Log in
+              </Button>
+            </NavbarItem>
+            <NavbarItem >
+              <Button as={Link} className="bg-primary text-white rounded-full md:text-medium md:px-5 md:py-6" href="/start" variant="flat">
+                Sign up
               </Button>
             </NavbarItem>
           </NavbarContent>
