@@ -12,7 +12,7 @@ const Hero = () => {
         <h1 className='text-center font-extrabold text-4xl sm:text-6xl text-txt'>Out of the loop?<br/><span className='bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text'>Know what you missed</span></h1>
         <p className='text-txt max-w-sm sm:max-w-xl text-center text-md sm:text-xl'>Get a personalized news feed of the world while you were gone.</p>
         <div className='flex flex-col space-y-4 items-center justify-center w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 xxl flex-wrap'>
-          <Link href='/start'><Button className='bg-primary text-lg text-black rounded-full py-2 px-6 hover:opacity-80'>Get your free feed</Button></Link>
+          <Link href='/start'><Button className='bg-primary text-lg text-white rounded-full py-2 px-6 hover:opacity-80'>Get your free feed</Button></Link>
         </div>
         </div>
         <div className='flex justify-center'>

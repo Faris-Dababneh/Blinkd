@@ -34,9 +34,9 @@ export const options: NextAuthOptions = {
             }
         })
     ],
-    /*pages: {
-        signIn: "/auth/signin"
-    }*/
+    pages: {
+        signIn: "api/auth/signin"
+    }
 }
 
 // https://www.youtube.com/watch?v=w2h54xz6Ndw&t=910s

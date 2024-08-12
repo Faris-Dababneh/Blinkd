@@ -97,7 +97,7 @@ const NavContent = () => {
               </Button>
             </NavbarItem>
             <NavbarItem >
-              <Button as={Link} className="bg-primary text-white rounded-full md:text-medium md:px-5 md:py-6" href="/start" variant="flat">
+              <Button as={Link} className="bg-primary text-white rounded-full md:text-medium" href="/signup" variant="flat">
                 Sign up
               </Button>
             </NavbarItem>

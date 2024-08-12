@@ -6,6 +6,7 @@ import { Button } from '@nextui-org/react';
 const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
   
   const handleNext = () => {
+    
     switch (currentIndex) {
       case 1:
         if (answers[0] !== null) {
@@ -13,13 +14,22 @@ const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
         }
         break;
       case 2:
-        // add rest of logic
+        if (answers[1][0]) {
+          setCurrentIndex(currentIndex + 1)
+        }
+        break;
+      case 3:
+        const array = Array.from(answers[2])
+        if (array[0]) {
+          setCurrentIndex(currentIndex + 1)
+        }
+        break;
     }
   }
 
   return (
     <div className='absolute bottom-0 w-full'>
-        <Progress aria-label="Loading..." size='sm' value={currentIndex * 25} className="w-full" 
+        <Progress aria-label="Loading..." size='sm' value={currentIndex * (100 / answers.length)} className="w-full" 
             classNames={{
                 track: "drop-shadow-md",
                 indicator: "bg-gradient-to-r from-primary to-secondary"}} />
