@@ -2,6 +2,7 @@
 import React, {useState} from 'react'
 import {Progress} from "@nextui-org/react";
 import { Button } from '@nextui-org/react';
+//import { SaveAnswer } from '../database/User'
 
 const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
   
@@ -11,6 +12,7 @@ const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
       case 1:
         if (answers[0] !== null) {
           setCurrentIndex(currentIndex + 1)
+          //SaveAnswer(answers[0])
         }
         break;
       case 2:

@@ -6,6 +6,7 @@ import {Divider} from "@nextui-org/divider";
 import { Input, Autocomplete } from "@nextui-org/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
+import Link from 'next/link'
 
 function SignUp()
 {
@@ -14,9 +15,9 @@ function SignUp()
 
     return (
         <div className="flex flex-col justify-center items-center pt-6">
-            <h1 className="text-2xl md:text-4xl font-semibold mb-4">Sign up to get your news feed</h1>
+            <h1 className="text-2xl md:text-4xl font-semibold mb-8">Sign up to get your news feed</h1>
             <Button className="rounded-full bg-[#4285F4] text-white w-64 mb-4" endContent={<div className="bg-white rounded-full p-1 absolute right-[2px]"><FcGoogle  size={28}/></div>}><p className="mr-8 absolute left-5">Sign up with Google</p></Button>
-            <div className="my-4 w-64 flex flex-row justify-center items-center">
+            <div className="my-4 w-full sm:w-1/2 lg:w-1/3 px-4 flex flex-row justify-center items-center">
                 <Divider className="" />
                 <p className="absolute bg-white px-3">or</p>
             </div>
@@ -51,7 +52,6 @@ function SignUp()
                     />
                 <Input
                     variant="bordered"
-                    type="password"
                     label="Password"
                     labelPlacement={'outside'}
                     placeholder="Password (8 or more characters)"
@@ -66,6 +66,7 @@ function SignUp()
                         </button>
                       }
                       isRequired
+                      type={isVisible ? "text" : "password"}
                     />
                 {/*<Autocomplete 
                     labelPlacement={"outside"}
@@ -76,7 +77,11 @@ function SignUp()
                     className="-my-10 border"
                 />
                 */}
-                <Button className="bg-primary text-white text-lg">Create my account</Button>
+                <div className="flex flex-col items-center space-y-4">
+                    <Link href='/start'><Button className="bg-primary text-white text-lg">Create my account</Button></Link>
+                    <p className="text-black font-light">Already have an account? <Link className="text-primary underline hover:opacity-90" href='/'>Log In</Link></p>
+                </div>
+                
             </div>
         </div>
     );
