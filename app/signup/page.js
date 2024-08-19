@@ -1,4 +1,7 @@
 'use client'
+/*
+NEXT STEP: MAKE SURE SIGN IN REDIRECT IS CONFIGURED, DIRECTING THE USER TO THE QUESTIONARRE AFTER SIGNING UP
+*/
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
@@ -7,8 +10,9 @@ import { Input, Autocomplete } from "@nextui-org/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import Link from 'next/link'
+import { getProviders, signIn } from "next-auth/react"
 
-function SignUp()
+async function SignUp()
 {
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
@@ -16,7 +20,7 @@ function SignUp()
     return (
         <div className="flex flex-col justify-center items-center pt-6">
             <h1 className="text-2xl md:text-4xl font-semibold mb-8">Sign up to get your news feed</h1>
-            <Button className="rounded-full bg-[#4285F4] text-white w-64 mb-4" endContent={<div className="bg-white rounded-full p-1 absolute right-[2px]"><FcGoogle  size={28}/></div>}><p className="mr-8 absolute left-5">Sign up with Google</p></Button>
+            <Button className="rounded-full bg-[#4285F4] text-white w-64 mb-4" onClick={() => signIn("google")} endContent={<div className="bg-white rounded-full p-1 absolute right-[2px]"><FcGoogle  size={28}/></div>}><p className="mr-8 absolute left-5">Sign up with Google</p></Button>
             <div className="my-4 w-full sm:w-1/2 lg:w-1/3 px-4 flex flex-row justify-center items-center">
                 <Divider className="" />
                 <p className="absolute bg-white px-3">or</p>

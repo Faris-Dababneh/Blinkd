@@ -1,4 +1,4 @@
-import { getAuth, initializeApp } from 'firebase/app';
+import { getAuth, initializeApp, getApp, getApps } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAnalytics } from "firebase/analytics";
 import { NextAuthOptions } from "next-auth";
@@ -14,7 +14,8 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
   };
 
-const app = initializeApp(firebaseConfig);
+  // Initialize Firebase
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
