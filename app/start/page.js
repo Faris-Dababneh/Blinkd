@@ -1,10 +1,12 @@
 'use client'
+// FIGURE OUT HOW TO SET COOKIES WHEN THE USER CHANGES AN INPUT COMPONENT Cookies.set('name', value)
 import React, { useState, useEffect } from 'react'
 import BottomNav from './BottomNav'
 import {DateRangePicker} from "@nextui-org/react";
 import {getLocalTimeZone, today} from "@internationalized/date";
 import {Select, SelectItem, Avatar, Chip} from "@nextui-org/react";
 import countryList from 'react-select-country-list';
+import Cookies from 'js-cookie'
 
 import { TagsInput } from '@mantine/core';
 import { MantineProvider } from '@mantine/core';
@@ -17,7 +19,7 @@ function Start() {
   const [duration, setDuration] = useState(null)
   const [interests, setInterests] = useState([]);
   const [places, setPlaces] = useState(new Set([]))
-
+  console.log(Cookies.get('duration'))
   const handleSelectionChange = (e) => {
     setPlaces(new Set(e.target.value.split(",")));
     console.log(places)

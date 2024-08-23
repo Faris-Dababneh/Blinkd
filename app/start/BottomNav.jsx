@@ -2,17 +2,18 @@
 import React, {useState} from 'react'
 import {Progress} from "@nextui-org/react";
 import { Button } from '@nextui-org/react';
-//import { SaveAnswer } from '../database/User'
+import { saveAnswer } from '../database/Firebase'
+import { useSession } from 'next-auth/react';
 
 const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
-  
+  const {data: session } = useSession();
   const handleNext = () => {
-    
+    const data = JSON.parse(JSON.stringify(answers))
     switch (currentIndex) {
       case 1:
         if (answers[0] !== null) {
           setCurrentIndex(currentIndex + 1)
-          //SaveAnswer(answers[0])
+          saveAnswer(data[0], session)
         }
         break;
       case 2:

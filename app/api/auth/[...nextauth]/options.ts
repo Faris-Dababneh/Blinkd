@@ -46,6 +46,13 @@ export const options: NextAuthOptions = {
     pages: {
         signIn: "api/auth/signin"
     },
+    callbacks: {
+        async session({ session, token, user }) {
+          // Include the user's Firebase UID in the session object
+          session.user.id = user.id;
+          return session;
+        },
+      },
     
 }
 

@@ -62,7 +62,7 @@ import { FaUserCircle } from "react-icons/fa";
 import {Avatar} from "@nextui-org/react";
 
 const NavContent = () => {
-  const {data: session} = useSession();
+  const {data: session, update } = useSession();
   const pathname = usePathname();
 
   return (
@@ -84,9 +84,10 @@ const NavContent = () => {
           {session ? (
             <NavbarContent justify="end">
               <NavbarItem className="hidden md:flex">
-                <Button as={Link} className="bg-primary text-black text-medium rounded-full" href="/dashboard" variant="flat">
+                {/*<Button as={Link} className="bg-primary text-black text-medium rounded-full" href="/dashboard" variant="flat">
                   Dashboard
-                </Button>
+                </Button>*/}
+                <Button onClick={() => update({ name: "Yo"})}>Dashboard</Button>
               </NavbarItem>
             </NavbarContent>
           ) : (

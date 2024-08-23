@@ -1,4 +1,5 @@
-import { getAuth, initializeApp, getApp, getApps } from 'firebase/app';
+import { initializeApp, getApp, getApps } from 'firebase/app';
+import {getAuth} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore';
 import { getAnalytics } from "firebase/analytics";
 import { NextAuthOptions } from "next-auth";
@@ -17,10 +18,10 @@ const firebaseConfig = {
   // Initialize Firebase
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const analytics = getAnalytics(app);
+//const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
-const options = {
+/*const options = {
     adapter: FirestoreAdapter(auth),
     providers: [
       // ... other providers if applicable
@@ -29,8 +30,8 @@ const options = {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
     ],
-  };
+  };*/
 
-export { db, options };
+export { db };
 
 // https://authjs.dev/getting-started/adapters/firebase?_gl=1*1tqqesr*_gcl_au*MzM5MzE3NTM1LjE3MTgwNDgwMzguOTAyMDE0MjIyLjE3MjA3MzI0NTAuMTcyMDczMjQ0OQ..
