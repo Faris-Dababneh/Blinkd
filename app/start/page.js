@@ -1,12 +1,15 @@
 'use client'
-// FIGURE OUT HOW TO SET COOKIES WHEN THE USER CHANGES AN INPUT COMPONENT Cookies.set('name', value)
+// CURRENTLY GETTING ERROR ABOUT HTML MISMATCH - CREATE A USEEFFECT THAT RUNS ONCE AND SET THE DURATION STATE AND ALL THE COOKIE STUFF IN THERE https://stackoverflow.com/questions/66374123/warning-text-content-did-not-match-server-im-out-client-im-in-div
 import React, { useState, useEffect } from 'react'
 import BottomNav from './BottomNav'
 import {DateRangePicker} from "@nextui-org/react";
-import {getLocalTimeZone, today} from "@internationalized/date";
+import {getLocalTimeZone, today, parseDate} from "@internationalized/date";
 import {Select, SelectItem, Avatar, Chip} from "@nextui-org/react";
 import countryList from 'react-select-country-list';
 import Cookies from 'js-cookie'
+import _ from 'lodash';
+import { AiFillAmazonCircle } from "react-icons/ai";
+
 
 import { TagsInput } from '@mantine/core';
 import { MantineProvider } from '@mantine/core';
@@ -15,32 +18,64 @@ import { MantineProvider } from '@mantine/core';
 function Start() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [answers, setAnswers] = useState([]);
+  const [duration, setDuration] = useState()
 
-  const [duration, setDuration] = useState(null)
-  const [interests, setInterests] = useState([]);
+  // Gets the cookie for duration if it exists
+  let durationCookie = Cookies.get('duration') ? JSON.parse(Cookies.get('duration')) : null
+  useEffect(() => {
+    // If the cookie exists, it will set the DateRangePicker component to the cookie value
+    if (durationCookie) {
+      let durationStartMonth = durationCookie ? durationCookie.start.month < 10 ? `0${durationCookie.start.month}` : durationCookie.start.month : null
+      let durationStartDay = durationCookie ? durationCookie.start.day < 10 ? `0${durationCookie.start.day}` : durationCookie.start.day : null
+      let durationEndMonth = durationCookie ? durationCookie.end.month < 10 ? `0${durationCookie.end.month}` : durationCookie.end.month : null
+      let durationEndDay = durationCookie ? durationCookie.end.day < 10 ? `0${durationCookie.end.day}` : durationCookie.end.day : null
+      let startDate = durationCookie ? parseDate(`${durationCookie.start.year}-${durationStartMonth}-${durationStartDay}`) : null
+      let endDate = durationCookie ? parseDate(`${durationCookie.end.year}-${durationEndMonth}-${durationEndDay}`) : null
+      setDuration({start: startDate, end: endDate})
+    } else {
+      setDuration({start: null, end: null})
+    }
+  }, [])
+  
+  
   const [places, setPlaces] = useState(new Set([]))
-  console.log(Cookies.get('duration'))
+  
   const handleSelectionChange = (e) => {
     setPlaces(new Set(e.target.value.split(",")));
     console.log(places)
   };
 
+  const durationChange = (event) => {
+    setDuration(event)
+    Cookies.set('duration', `${JSON.stringify(event)}`)
+  }
+
   const Duration = () => {
     return (
-      <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4'>
+      <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4' suppressHydrationWarning={true}>
           <h1 className='text-black text-center text-2xl sm:text-4xl font-semibold'>How long do you need your news coverage?</h1>
           <p className='py-3 text-center'>Your feed will contain all relevant news during this period.</p>
           <DateRangePicker 
                 visibleMonths={2}
                 variant={"underlined"}
                 value={duration}
-                onChange={setDuration}
+                onChange={(event) => durationChange(event)}
                 maxValue={today(getLocalTimeZone())}
                 className='w-full sm:w-1/2 md:w-1/3'
               />
       </div>
       
     )
+  }
+  
+  let interestsCookie = Cookies.get('interests') ? JSON.parse(Cookies.get('interests')) : null;
+  const [interests, setInterests] = useState(interestsCookie ? interestsCookie : null);
+
+  const interestsChange = (event) => {
+    setInterests(event)
+    console.log(event)
+    Cookies.set('interests', `${JSON.stringify(event)}`)
+    console.log(JSON.parse(Cookies.get('interests')))
   }
 
   const Interests = () => {
@@ -54,7 +89,7 @@ function Start() {
               placeholder="Enter interests here"
               data={['Science', 'Technology', 'Politics', 'World Events', 'Business & Economy', 'Entertainment & Pop Culture', 'Health & Wellness', 'Environment', 'Sports', 'Art & Culture']}
               value={interests}
-              onChange={setInterests}
+              onChange={(event) => interestsChange(event)}
               clearable
               className='w-3/4 sm:w-1/2 lg:w-1/3'
             />
@@ -86,14 +121,25 @@ function Start() {
         <p className='py-3 text-center'>Specifying an area helps customize your news alongside global events.</p>
         
         <Select
-          className="max-w-xs"
+          className="max-w-sm"
           label="Select countries"
           items={countries}
           selectionMode="multiple"
           labelPlacement="outside"
           selectedKeys={places}
+          isMultiline={true}
+          variant='bordered'
           onChange={handleSelectionChange}
           disableAnimation
+          renderValue={(items) => {
+            return (
+              <div className="flex flex-wrap gap-2 py-2">
+                {items.map((item) => (
+                  <Chip key={item.key}>{item.key}</Chip>
+                ))}
+              </div>
+            );
+          }}
         >
           
           {countries.length > 0 ? (
