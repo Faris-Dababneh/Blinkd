@@ -1,5 +1,4 @@
 'use client'
-// CURRENTLY GETTING ERROR ABOUT HTML MISMATCH - CREATE A USEEFFECT THAT RUNS ONCE AND SET THE DURATION STATE AND ALL THE COOKIE STUFF IN THERE https://stackoverflow.com/questions/66374123/warning-text-content-did-not-match-server-im-out-client-im-in-div
 import React, { useState, useEffect } from 'react'
 import BottomNav from './BottomNav'
 import {DateRangePicker} from "@nextui-org/react";
@@ -18,7 +17,7 @@ import { MantineProvider } from '@mantine/core';
 function Start() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [answers, setAnswers] = useState([]);
-  const [duration, setDuration] = useState()
+  const [duration, setDuration] = useState(null)
 
   // Gets the cookie for duration if it exists
   let durationCookie = Cookies.get('duration') ? JSON.parse(Cookies.get('duration')) : null
@@ -37,17 +36,14 @@ function Start() {
     }
   }, [])
   
-  
-  const [places, setPlaces] = useState(new Set([]))
-  
-  const handleSelectionChange = (e) => {
-    setPlaces(new Set(e.target.value.split(",")));
-    console.log(places)
-  };
 
   const durationChange = (event) => {
     setDuration(event)
-    Cookies.set('duration', `${JSON.stringify(event)}`)
+    if (event)
+    {
+      Cookies.set('duration', `${JSON.stringify(event)}`)
+    }
+    
   }
 
   const Duration = () => {
@@ -69,7 +65,7 @@ function Start() {
   }
   
   let interestsCookie = Cookies.get('interests') ? JSON.parse(Cookies.get('interests')) : null;
-  const [interests, setInterests] = useState(interestsCookie ? interestsCookie : null);
+  const [interests, setInterests] = useState(interestsCookie ? interestsCookie : []);
 
   const interestsChange = (event) => {
     setInterests(event)
@@ -97,7 +93,15 @@ function Start() {
         </MantineProvider>
     );
   }
+
+  let placesCookie = Cookies.get('places') ? JSON.parse(Cookies.get('places')) : null
+  const [places, setPlaces] = useState(new Set([]))
   
+  const handleSelectionChange = (event) => {
+    setPlaces(new Set(event.target.value.split(",")));
+    Cookies.set('places', `${JSON.stringify(new Set(event.target.value.split(",")))}`);
+  };
+
   const Geography = () => {
     const [countries, setCountries] = useState([]);
 
@@ -129,7 +133,7 @@ function Start() {
           selectedKeys={places}
           isMultiline={true}
           variant='bordered'
-          onChange={handleSelectionChange}
+          onChange={(event) => handleSelectionChange(event)}
           disableAnimation
           renderValue={(items) => {
             return (
