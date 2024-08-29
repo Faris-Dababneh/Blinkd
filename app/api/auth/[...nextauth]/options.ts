@@ -44,7 +44,7 @@ export const options: NextAuthOptions = {
         }),
       }),
     pages: {
-        signIn: "api/auth/signin"
+        signIn: "/api/auth/signin"
     },
     callbacks: {
         async session({ session, token, user }) {

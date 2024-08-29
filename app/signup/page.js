@@ -72,15 +72,6 @@ async function SignUp()
                       isRequired
                       type={isVisible ? "text" : "password"}
                     />
-                {/*<Autocomplete 
-                    labelPlacement={"outside"}
-                    type="country"
-                    label="Country"
-                    variant="bordered"
-                    placeholder="United States"
-                    className="-my-10 border"
-                />
-                */}
                 <div className="flex flex-col items-center space-y-4">
                     <Link href='/start'><Button className="bg-primary text-white text-lg">Create my account</Button></Link>
                     <p className="text-black font-light">Already have an account? <Link className="text-primary underline hover:opacity-90" href='/'>Log In</Link></p>

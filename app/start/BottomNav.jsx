@@ -1,14 +1,15 @@
 'use client'
-// FIGURE OUT HOW TO SAVE ALL ANSWERS TO DATABASE
+// THERE IS SOMETHING WITH THE DASHBOARD REDIRECT - IT MUST BE PROTECTED BY AUTH SOMEWHERE IN THE PROJECT - TRY DELETING IT AND REMAKING
 import React, {useState} from 'react'
 import {Progress} from "@nextui-org/react";
 import { Button } from '@nextui-org/react';
 import { saveAnswer } from '../database/Firebase'
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation'
 
 const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
   const {data: session } = useSession();
-  
+  const router = useRouter()
   //console.log(answers)
   const handleNext = () => {
     switch (currentIndex) {
@@ -31,20 +32,20 @@ const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
     }
   }
 
+  // Saves all answers to user collection
   const handleSubmit = () => {
-    //const data = JSON.parse(JSON.stringify(answers))
     
     answers.forEach(answer => {
-      //saveAnswer(answer, session)
       if (answer instanceof Set) {
         console.log(Array.from(answer))
-        console.log('is set')
+        saveAnswer({'places': Object.assign({}, Array.from(answer))}, session)
+      } else if (Array.isArray(answer)) {
+        saveAnswer({'interests': Object.assign({}, answer)}, session)
       } else {
-        console.log(answer)
+        saveAnswer({'duration': JSON.parse(JSON.stringify(answer))}, session)
       }
-      
     })
-    console.log('submitted')
+    
   }
 
   return (
@@ -54,11 +55,7 @@ const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
                 track: "drop-shadow-md",
                 indicator: "bg-gradient-to-r from-primary to-secondary"}} />
         <Button className='bg-transparent border-2 border-gray-300 text-primary text-md my-4 ml-4' onClick={() => currentIndex !== 1 ? setCurrentIndex(currentIndex - 1) : setCurrentIndex(currentIndex)}>Back</Button>
-        {currentIndex === 3 ? (
-          <Button className='bg-primary text-white font-semibold text-md absolute right-0 top-5 mr-4' onClick={handleNext}>Submit</Button>
-        ) : (
-          <Button className='bg-primary text-white font-semibold text-md absolute right-0 top-5 mr-4' onClick={handleNext}>Next</Button>
-        )}
+        <Button className='bg-primary text-white font-semibold text-md absolute right-0 top-5 mr-4' onClick={handleNext}>{currentIndex === 3 ? <p>Submit</p> : <p>Next</p>}</Button>
         
     </div>
   )
