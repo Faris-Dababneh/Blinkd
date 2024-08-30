@@ -2,7 +2,7 @@
 /*
 NEXT STEP: MAKE SURE SIGN IN REDIRECT IS CONFIGURED, DIRECTING THE USER TO THE QUESTIONARRE AFTER SIGNING UP
 */
-import React from "react";
+import React, {useEffect} from "react";
 import { Button } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
 import {Divider} from "@nextui-org/divider";
@@ -11,9 +11,21 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import Link from 'next/link'
 import { getProviders, signIn } from "next-auth/react"
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation'
 
-async function SignUp()
+function SignUp()
 {
+    const {data: session } = useSession();
+    const router = useRouter()
+
+    // Redirects user if they are already signed in
+    useEffect(() => {
+        if (session) {
+            router.push('/start')
+        } 
+    })
+
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 

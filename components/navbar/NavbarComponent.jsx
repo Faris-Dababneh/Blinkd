@@ -84,7 +84,7 @@ const NavContent = () => {
           {session ? (
             <NavbarContent justify="end">
               <NavbarItem className="hidden md:flex">
-                <Button as={Link} className="bg-primary text-black text-medium rounded-full" href="/dashboard" variant="flat">
+                <Button as={Link} className="bg-primary text-black text-medium rounded-full" href="/" variant="flat">
                   Dashboard
                 </Button>
               </NavbarItem>
