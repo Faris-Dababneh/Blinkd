@@ -22,7 +22,7 @@ function SignUp()
     // Redirects user if they are already signed in
     useEffect(() => {
         if (session) {
-            router.push('/start')
+             router.push('/start')
         } 
     })
 

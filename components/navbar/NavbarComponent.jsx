@@ -8,6 +8,7 @@ import { useRouter, usePathname } from 'next/navigation';
 
 function NavbarComponent() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
 
   const menuItems = [
     "Profile",
@@ -21,41 +22,44 @@ function NavbarComponent() {
     "Help & Feedback",
     "Log Out",
   ];
-
-  return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="mt-2">
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <div className="mr-8">
-          <Link href='/' className="text-txt">
-            <BsStack size={20}/>
-            <p className="font-bold text-xl ml-2">Blinkd</p>
-          </Link>
-        </div>
-        <NavContent />
-      </NavbarContent>
-
-      <NavbarMenu className="z-30 px-6 pt-2 fixed flex max-w-full top-[var(--navbar-height)] inset-x-0 bottom-0 w-screen flex-col gap-2 overflow-y-auto backdrop-blur-xl backdrop-saturate-150 bg-primary/70">
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className={
-                `${index === 2 ? "text-secondary" : index === menuItems.length - 1 ? "text-tertiary" : "text-whitish"} w-full`
-              }
-  
-              href="#"
-              size="lg"
-            >
-              {item}
+  if (pathname !== '/dashboard') {
+    return (
+      <Navbar onMenuOpenChange={setIsMenuOpen} className="mt-2">
+        <NavbarContent>
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
+          <div className="mr-8">
+            <Link href='/' className="text-txt">
+              <BsStack size={20}/>
+              <p className="font-bold text-xl ml-2">Blinkd</p>
             </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
-  );
+          </div>
+          <NavContent />
+        </NavbarContent>
+
+        <NavbarMenu className="z-30 px-6 pt-2 fixed flex max-w-full top-[var(--navbar-height)] inset-x-0 bottom-0 w-screen flex-col gap-2 overflow-y-auto backdrop-blur-xl backdrop-saturate-150 bg-primary/70">
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link
+                className={
+                  `${index === 2 ? "text-secondary" : index === menuItems.length - 1 ? "text-tertiary" : "text-whitish"} w-full`
+                }
+    
+                href="#"
+                size="lg"
+              >
+                {item}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </Navbar>
+    );
+  } else {
+    return;
+  }
 }
 
 import { FaUserCircle } from "react-icons/fa";
@@ -84,9 +88,10 @@ const NavContent = () => {
           {session ? (
             <NavbarContent justify="end">
               <NavbarItem className="hidden md:flex">
-                <Button as={Link} className="bg-primary text-black text-medium rounded-full" href="/" variant="flat">
+                <Link prefetch={false} href="/dashboard"><Button className="bg-primary text-white text-medium rounded-full" variant="flat">
                   Dashboard
                 </Button>
+                </Link>
               </NavbarItem>
             </NavbarContent>
           ) : (
@@ -104,7 +109,8 @@ const NavContent = () => {
           </NavbarContent>
           )}
       </>
-    ) : (
+     ) : (
+     pathname !== '/' &&
       <>
         <NavbarContent className="hidden sm:flex gap-8">      
             <NavbarItem>
@@ -125,14 +131,14 @@ const NavContent = () => {
               <Link href="/" className="text-txt text-medium">Login</Link>
             </NavbarItem>
             <NavbarItem>
-              <Button as={Link} className="bg-primary text-black text-medium rounded-full" href="api/auth/signin" variant="flat">
+              <Button as={Link} className="bg-primary text-white text-medium rounded-full" href="api/auth/signin" variant="flat">
                 Sign up
               </Button>
             </NavbarItem>
           </NavbarContent>
           )}
       </>
-    )}
+     )}
     </>
   )
 }

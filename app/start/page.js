@@ -7,8 +7,6 @@ import {Select, SelectItem, Avatar, Chip} from "@nextui-org/react";
 import countryList from 'react-select-country-list';
 import Cookies from 'js-cookie'
 import _ from 'lodash';
-import { AiFillAmazonCircle } from "react-icons/ai";
-
 
 import { TagsInput } from '@mantine/core';
 import { MantineProvider } from '@mantine/core';
@@ -17,7 +15,7 @@ import { MantineProvider } from '@mantine/core';
 function Start() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [answers, setAnswers] = useState([]);
-  const [duration, setDuration] = useState(null)
+  const [duration, setDuration] = useState()
 
   // Gets the cookie for duration if it exists
   let durationCookie = Cookies.get('duration') ? JSON.parse(Cookies.get('duration')) : null
@@ -28,8 +26,8 @@ function Start() {
       let durationStartDay = durationCookie ? durationCookie.start.day < 10 ? `0${durationCookie.start.day}` : durationCookie.start.day : null
       let durationEndMonth = durationCookie ? durationCookie.end.month < 10 ? `0${durationCookie.end.month}` : durationCookie.end.month : null
       let durationEndDay = durationCookie ? durationCookie.end.day < 10 ? `0${durationCookie.end.day}` : durationCookie.end.day : null
-      let startDate = durationCookie ? parseDate(`${durationCookie.start.year}-${durationStartMonth}-${durationStartDay}`) : null
-      let endDate = durationCookie ? parseDate(`${durationCookie.end.year}-${durationEndMonth}-${durationEndDay}`) : null
+      let startDate = durationCookie ? durationCookie.start.year > 1000 ? parseDate(`${durationCookie.start.year}-${durationStartMonth}-${durationStartDay}`) : null : null
+      let endDate = durationCookie ? durationCookie.end.year > 1000 ? parseDate(`${durationCookie.end.year}-${durationEndMonth}-${durationEndDay}`) : null : null
       setDuration({start: startDate, end: endDate})
     } else {
       setDuration({start: null, end: null})
@@ -47,6 +45,7 @@ function Start() {
   }
 
   const Duration = () => {
+    // THIS DATE COMPONENT STINKS - USE MANTINE INSTEAD https://mantine.dev/dates/date-picker-input/
     return (
       <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4' suppressHydrationWarning={true}>
           <h1 className='text-black text-center text-2xl sm:text-4xl font-semibold'>How long do you need your news coverage?</h1>
@@ -55,7 +54,7 @@ function Start() {
                 visibleMonths={2}
                 variant={"underlined"}
                 value={duration}
-                onChange={(event) => durationChange(event)}
+                onChange={durationChange}
                 maxValue={today(getLocalTimeZone())}
                 className='w-full sm:w-1/2 md:w-1/3'
               />
