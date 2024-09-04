@@ -1,6 +1,7 @@
 'use server'
 import { db } from "../../firebase.config";
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import {interpretAnswer} from './api/Gemini';
 
 async function saveAnswer(answers, session) {
 
@@ -25,11 +26,10 @@ async function getAnswer(answer, session) {
       const docSnap = await getDoc(docRef);
 
       const answers = docSnap.data().answers
-      //console.log(answers)
       for (const ans of answers) {
-        console.log(ans.duration)
-        if (ans.answer !== undefined) { // ans.answer will not work because 'answer' is not part of the array
-          
+        if (answer in ans) { 
+          interpretAnswer(JSON.stringify(ans[answer])); // Check if array is the date answer, then format it. Then check if it has multiple answers (science, technology, world events, etc.) and extract those
+
         }
         
       }

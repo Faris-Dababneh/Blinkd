@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/firebase-adapter": "^2.4.2",
+    "@google/generative-ai": "^0.17.1",
     "@internationalized/date": "^3.5.4",
     "@mantine/core": "^7.11.2",
     "@mantine/hooks": "^7.11.2",
