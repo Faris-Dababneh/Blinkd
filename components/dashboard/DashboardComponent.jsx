@@ -9,14 +9,18 @@ import { getAnswer } from '../../app/database/Firebase'
 export const DashboardComponent = () => {
 
   const {data: session } = useSession();
-  getAnswer('interests', session)
+  const getAns = async () => {
+    const answer = await getAnswer('interests', session)
+    console.log(answer)
+  }
+  
 
   return (
     <div className='flex flex-col pl-44 pt-16 w-5/6 h-screen'>
         <Header name={'Dashboard'} description={'Manage your feed preferences and results'}/>
         <div>
           <Tile answerName={'Duration'} answer={'null'} session={session}/>
-            <Button>Generate Free News Feed</Button>
+            <Button onClick={getAns}>Generate Free News Feed</Button>
         </div>
     </div>
   )

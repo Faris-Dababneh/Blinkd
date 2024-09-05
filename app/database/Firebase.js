@@ -28,8 +28,8 @@ async function getAnswer(answer, session) {
       const answers = docSnap.data().answers
       for (const ans of answers) {
         if (answer in ans) { 
-          interpretAnswer(JSON.stringify(ans[answer])); // Check if array is the date answer, then format it. Then check if it has multiple answers (science, technology, world events, etc.) and extract those
-
+          const interpreted = await interpretAnswer(ans, answer); // Check if array is the date answer, then format it. Then check if it has multiple answers (science, technology, world events, etc.) and extract those
+          return interpreted;
         }
         
       }
