@@ -17,7 +17,7 @@ async function saveAnswer(answers, session) {
   }
 };
 
-async function getAnswer(answer, session) {
+async function getAnswers(session) {
 
   if (session) {
     const userId = session.user.id;
@@ -26,13 +26,12 @@ async function getAnswer(answer, session) {
       const docSnap = await getDoc(docRef);
 
       const answers = docSnap.data().answers
+      let final = [];
       for (const ans of answers) {
-        if (answer in ans) { 
-          const interpreted = await interpretAnswer(ans, answer); // Check if array is the date answer, then format it. Then check if it has multiple answers (science, technology, world events, etc.) and extract those
-          return interpreted;
-        }
-        
+        const interpreted = await interpretAnswer(ans);
+        final.push(interpreted);
       }
+      return final;
     } catch (error) {
       console.log(error);
     }
@@ -40,4 +39,4 @@ async function getAnswer(answer, session) {
   }
 }
 
-export {saveAnswer, getAnswer}; 
+export {saveAnswer, getAnswers}; 
