@@ -13,15 +13,13 @@ export const DashboardComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
   
   function ShowAnswers() {
-
-
       return (
-        <div className='border w-full'>
+        <div className='flex space-x-10 w-full pb-10'>
         {answers &&
           <>
           {answers.map((item) => (
-                <Tile key={item[0]} answerName={item[0]} answer={item[1]}/>
-              ))}
+            <Tile key={item} answerName={item[0]} answer={item}/>
+          ))}
           </>
         }
         </div>
