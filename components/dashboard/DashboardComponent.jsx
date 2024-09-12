@@ -5,13 +5,14 @@ import {Header} from './Header'
 import {Tile} from './Tile'
 import { useSession } from 'next-auth/react';
 import { getAnswers } from '../../app/database/Firebase'
+import Link from 'next/link'
+import Cookies from 'js-cookie'
 
 export const DashboardComponent = () => {
 
   const {data: session } = useSession();
   const [answers, setAnswers] = useState(undefined)
-  const [isLoading, setIsLoading] = useState(true);
-  
+
   function ShowAnswers() {
       return (
         <div className='flex space-x-10 w-full pb-10'>
@@ -32,6 +33,7 @@ export const DashboardComponent = () => {
       if (answers === undefined) {
         let answer = await getAnswers(session)
         setAnswers(answer)
+        Cookies.set('answers', `${JSON.stringify(answer)}`)
       } else {
         return () => {}
       }
@@ -45,7 +47,7 @@ export const DashboardComponent = () => {
         <Header name={'Dashboard'} description={'Manage your feed preferences and results'}/>
         <div>
             <ShowAnswers />
-            <Button>Generate Free News Feed</Button>       
+            <Link href='/feed'><Button>Generate Free News Feed</Button></Link>     
             
             
         </div>

@@ -16,7 +16,7 @@ function Start() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [answers, setAnswers] = useState([]);
   const [duration, setDuration] = useState()
-
+  
   // Gets the cookie for duration if it exists
   let durationCookie = Cookies.get('duration') ? JSON.parse(Cookies.get('duration')) : null
   useEffect(() => {

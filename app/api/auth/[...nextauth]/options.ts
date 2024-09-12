@@ -43,9 +43,9 @@ export const options: NextAuthOptions = {
           privateKey: process.env.AUTH_FIREBASE_PRIVATE_KEY!.replace(/\\n/g, '\n'),
         }),
       }),
-    pages: {
+    /*pages: {
         signIn: "/api/auth/signin"
-    },
+    },*/
     callbacks: {
         async session({ session, token, user }) {
           // Include the user's Firebase UID in the session object

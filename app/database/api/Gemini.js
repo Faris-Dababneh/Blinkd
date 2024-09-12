@@ -23,4 +23,37 @@ async function interpretAnswer(array) {
     
 }
 
-export {interpretAnswer};
+async function createFeed(answers) {
+    // Need the user's answers (can call getAnswers() from Firebase), then prompt engineer
+    // For the result, make sure gemini formats it in the articles [] array format from the feed page.js
+    // ACTUALLY TRY TO USE NEWSAPI INSTEAD https://newsapi.org/
+    const prompt = `prompt`;
+    
+}
+
+export {interpretAnswer, createFeed};
+
+
+/*
+WORKING PROMPT FOR GPT
+
+Create a news feed based on the following specifications. Duration of the feed: "1/10/1960 - 2/15/1965"; topics to focus on: "science, technology, world events"; countries to focus on: "United States, Argentina." Create up to 3 unique articles based on these specifications, doing the best to find the most important information during the time period. When you have 3 articles and their website source or sources (ENSURE that each website link works), output them in this exact format: "const articles = [
+        {
+          id: 1,
+          headline: 'Article headline here',
+          summary: 'A brief summary of the article...',
+          source: 'Web URL here',
+          imageUrl: 'main image here',
+        },
+        {
+          id: 2,
+          headline: 'Article headline here',
+          summary: 'A brief summary of the article...',
+          source: 'Web URL here',
+          imageUrl: 'main image here',
+        },
+        // Add more articles here
+      ];"
+
+
+*/
