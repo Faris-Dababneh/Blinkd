@@ -2,8 +2,10 @@
 import React, {useState, useEffect} from 'react';
 import { NewsBox } from '../../components/feed/NewsBox';
 import { getAnswers } from '../../app/database/Firebase'
+import { Button } from '@nextui-org/react'
 import { useSession } from 'next-auth/react';
-import { createFeed } from '../database/api/Gemini';
+import { getArticles } from '../database/api/OpenAI';
+import { getArticleIds } from '../database/api/NewsAPI';
 import Cookies from 'js-cookie'
 
 function Feed()
@@ -19,9 +21,10 @@ function Feed()
         if (answers === undefined) {
           let answer = await getAnswers(session)
           setAnswers(answer)
-          let article = await createFeed(answer);
-          setArticles(article)
-          console.log(answer, article)
+          //let article = await getArticles(answer);
+          //setArticles(article)
+          //let ids = await getArticleIds();
+          //console.log(ids)
         } else {
           return () => {}
         }
@@ -60,6 +63,7 @@ function Feed()
                     onCollapse={() => setExpandedArticle(null)}
                 />
                 ))}
+                <Button onClick={async () => await getArticleIds()}>GET IDS</Button>
             </div>
         </div>
     );
