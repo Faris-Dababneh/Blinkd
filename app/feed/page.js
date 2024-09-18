@@ -1,4 +1,5 @@
 'use client'
+// CALL THE GETARTICLES FUNCTION USING THE FORMATTED ANSWERS
 import React, {useState, useEffect} from 'react';
 import { NewsBox } from '../../components/feed/NewsBox';
 import { getAnswers } from '../../app/database/Firebase'
@@ -14,23 +15,30 @@ function Feed()
     const [expandedArticle, setExpandedArticle] = useState(null);
     const [answers, setAnswers] = useState(undefined)
     const [articles1, setArticles] = useState(undefined)
+    
     //let answerCookie = JSON.parse(Cookies.get('answers')); USE COOKIES IN LATER PRODUCTION
 
     useEffect(() => {
       const fetchAnswer = async () => {
         if (answers === undefined) {
-          let answer = await getAnswers(session)
+          let answer = await getAnswers(session, true)
           setAnswers(answer)
-          //let article = await getArticles(answer);
-          //setArticles(article)
-          //let ids = await getArticleIds();
-          //console.log(ids)
+          console.log(answer)
         } else {
+          //let articles = await getArticleIds(answers[1], 'us', '1980-01-01T01:01:01Z', '2024-09-01T01:01:01Z');
           return () => {}
         }
       }
       fetchAnswer()
     })
+    /*const fetchArticles = async () => {
+        let articles = await getArticleIds('business', 'us', '1980-01-01T01:01:01Z', '2024-09-01T01:01:01Z');
+        console.log(articles)
+        return () => {}
+    }
+    useEffect(() => {
+      fetchArticles()
+    }, [])*/
 
     const articles = [
         {
@@ -63,7 +71,7 @@ function Feed()
                     onCollapse={() => setExpandedArticle(null)}
                 />
                 ))}
-                <Button onClick={async () => await getArticleIds()}>GET IDS</Button>
+                <Button onClick={async () => await getArticleIds('business', 'us', '1980-01-01T01:01:01Z', '2024-09-01T01:01:01Z')}>GET IDS</Button>
             </div>
         </div>
     );

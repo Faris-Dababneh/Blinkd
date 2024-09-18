@@ -4,13 +4,23 @@ import React from 'react'
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-async function interpretAnswer(array) {
+/* 
+Takes in two paramters: array and needsFormatting
+The array is the object that contains an answer which was previously stored to the Firbase database
+The answers have different formats, so the function considers each format and formats the initial object into the simplified answer to be used in other functions
+*/
+async function interpretAnswer(array, needsFormatting) {
     if ('duration' in array) {
-        const prompt = `The following object contains a start and end date. Format the object in this exact form: 'mm/dd/yyyy - mm/dd/yyyy'. This is the object: ${JSON.stringify(array)} Only output the formatted date range, do not include anything else in your response.`
+        let prompt;
+        if (needsFormatting) {
+            prompt = `The following object contains a start and end date. Format the object in this exact form: 'yyyy-mm-dd, yyyy-mm-dd'. This is the object: ${JSON.stringify(array)} Only output the formatted date range, do not include anything else in your response.`;
+        } else {
+            prompt = `The following object contains a start and end date. Format the object in this exact form: 'mm/dd/yyyy - mm/dd/yyyy'. This is the object: ${JSON.stringify(array)} Only output the formatted date range, do not include anything else in your response.`;
+        }
         const result = await model.generateContent(prompt);
-        const final = result.response.text();
+        const final = needsFormatting ? result.response.text().replace(' \n', '').split(', ') : result.response.text();
         console.log(final)
-        return ['duration', final];
+        return needsFormatting ? final : ['duration', final];
     } else {
         let final = [];
         Object.entries(array).forEach(([key, value]) => {
@@ -18,20 +28,20 @@ async function interpretAnswer(array) {
             final.push(key, item);
             }
         });
+        if (needsFormatting) {
+            for (let i = 0; i < final.length; i++) {
+                final.splice(i, 1);
+            }
+            let prompt = `If and only if the following list contains country names, output each country code (in lowercase) in a list seperated by commas. If it does NOT include country names, output the exact list seperated by commas with a space in between. Here is the list: ${final}`;
+            const result = await model.generateContent(prompt);
+            final = result.response.text().replace(' \n', '').split(', ');
+        }
         return final;
     }
     
 }
 
-async function createFeed(answers) {
-    // Need the user's answers (can call getAnswers() from Firebase), then prompt engineer
-    // For the result, make sure gemini formats it in the articles [] array format from the feed page.js
-    // ACTUALLY TRY TO USE NEWSAPI INSTEAD https://newsapi.org/
-    const prompt = `prompt`;
-    
-}
-
-export {interpretAnswer, createFeed};
+export {interpretAnswer};
 
 
 /*
