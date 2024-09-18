@@ -17,7 +17,7 @@ async function saveAnswer(answers, session) {
   }
 };
 
-async function getAnswers(session) {
+async function getAnswers(session, needsFormatting) {
 
   if (session) {
     const userId = session.user.id;
@@ -28,7 +28,7 @@ async function getAnswers(session) {
       const answers = docSnap.data().answers
       let final = [];
       for (const ans of answers) {
-        const interpreted = await interpretAnswer(ans);
+        const interpreted = await interpretAnswer(ans, needsFormatting);
         final.push(interpreted);
       }
       return final;

@@ -32,3 +32,4 @@ export default function RootLayout({ children }) {
 // git add .
 // git commit -m "Message"
 // git push
+// git push origin <branch-name>
