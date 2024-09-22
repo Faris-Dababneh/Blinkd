@@ -28,7 +28,7 @@ export const DashboardComponent = () => {
    
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     const fetchAnswer = async () => {
       if (answers === undefined) {
         let answer = await getAnswers(session)
@@ -39,7 +39,7 @@ export const DashboardComponent = () => {
       }
     }
     fetchAnswer()
-  })
+  })*/
   
 
   return (
