@@ -82,7 +82,7 @@ function Start() {
             <TagsInput
               label="Your interests"
               placeholder="Enter interests here"
-              data={['Science', 'Technology', 'Politics', 'World Events', 'Business & Economy', 'Entertainment & Pop Culture', 'Health & Wellness', 'Environment', 'Sports', 'Art & Culture']}
+              data={['Science', 'Technology', 'Politics', 'World', 'Business', 'Entertainment', 'Health', 'Fitness', 'Environment', 'Sports', 'Art', 'Culture']}
               value={interests}
               onChange={(event) => interestsChange(event)}
               clearable

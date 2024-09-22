@@ -1,12 +1,59 @@
-import React from 'react'
-import { Button } from '@nextui-org/react'
+'use client'
+import React, { useState } from 'react'
+import { MdOutlineSpaceDashboard, MdOutlineSettings, MdOutlineHome, MdOutlineCreditCard } from "react-icons/md";
+import { LuCreditCard } from "react-icons/lu";
+
+import { MantineProvider } from '@mantine/core';
+import { NavLink } from '@mantine/core';
 
 export const Sidebar = () => {
+  const menu = [
+    { index: 0, label: 'Dashboard', href: '/dashboard', icon: MdOutlineSpaceDashboard },
+    { index: 1, label: 'Billing', href: '#dashboard', icon: MdOutlineCreditCard },
+  ]
+
+  const options = [
+    { index: 2, label: 'Settings', href: '#settings', icon: MdOutlineSettings },
+    { index: 3, label: 'Homepage', href: '/', icon: MdOutlineHome },
+  ]
+
+  const [active, setActive] = useState(0);
+
   return (
-    <div className='w-1/6 border h-screen'>
-        <div className='w-full'>
-            <Button>Dashboard</Button>
-        </div>
-    </div>
+    <MantineProvider>
+      <div className='w-1/6 border h-screen'>
+          <div className='w-full'>
+          <div className='w-full p-4'>
+                <p className='text-small font-light'>MENU</p>
+                {menu.map((item) => (
+                    <NavLink 
+                    key={item.label}
+                    href={item.href}
+                    label={item.label}
+                    active={item.index === active}
+                    onClick={() => setActive(item.index)}
+                    leftSection={<item.icon size={20}/>}
+                    color='#00A9FF'
+                  />
+                ))}
+              </div>
+            <div className='w-full p-4'>
+              <p className='text-small font-light'>OPTIONS</p>
+              {options.map((item) => (
+                  <NavLink 
+                  key={item.label}
+                  href={item.href}
+                  label={item.label}
+                  active={item.index === active}
+                  onClick={() => setActive(item.index)}
+                  leftSection={<item.icon size={20}/>}
+                  color='#00A9FF'
+                />
+              ))}
+            </div>
+              
+          </div>
+      </div>
+    </MantineProvider>
   )
 }
