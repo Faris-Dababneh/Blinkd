@@ -47,7 +47,7 @@ const BottomNav = ({ currentIndex, setCurrentIndex, answers }) => {
         }
       }
       const final = {answers: data}
-      await saveAnswer(final, session)
+      await saveAnswer(session, final)
       router.push('/dashboard')
     } catch (error) {
       console.log(error)

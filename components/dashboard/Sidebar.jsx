@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { MdOutlineSpaceDashboard, MdOutlineSettings, MdOutlineHome, MdOutlineCreditCard } from "react-icons/md";
 import { LuCreditCard } from "react-icons/lu";
+import Link from 'next/link';
 
 import { MantineProvider } from '@mantine/core';
 import { NavLink } from '@mantine/core';
@@ -22,6 +23,11 @@ export const Sidebar = () => {
   return (
     <MantineProvider>
       <div className='w-1/6 border h-screen'>
+          <div className="p-4">
+            <Link href='/' className="text-txt">
+              <p className="font-bold text-xl">Blinkd</p>
+            </Link>
+          </div>
           <div className='w-full'>
           <div className='w-full p-4'>
                 <p className='text-small font-light'>MENU</p>
@@ -33,7 +39,6 @@ export const Sidebar = () => {
                     active={item.index === active}
                     onClick={() => setActive(item.index)}
                     leftSection={<item.icon size={20}/>}
-                    color='#00A9FF'
                   />
                 ))}
               </div>
@@ -47,7 +52,6 @@ export const Sidebar = () => {
                   active={item.index === active}
                   onClick={() => setActive(item.index)}
                   leftSection={<item.icon size={20}/>}
-                  color='#00A9FF'
                 />
               ))}
             </div>

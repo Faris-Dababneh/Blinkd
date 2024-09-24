@@ -11,7 +11,7 @@ The answers have different formats, so the function considers each format and fo
 */
 async function interpretAnswer(array, needsFormatting) {
     if ('duration' in array) {
-        let prompt;
+        /*let prompt;
         if (needsFormatting) {
             prompt = `The following object contains a start and end date. Format the object in this exact form: 'yyyy-mm-dd, yyyy-mm-dd'. This is the object: ${JSON.stringify(array)} Only output the formatted date range, do not include anything else in your response.`;
         } else {
@@ -20,6 +20,10 @@ async function interpretAnswer(array, needsFormatting) {
         const result = await model.generateContent(prompt);
         const final = needsFormatting ? result.response.text().replace(' \n', '').split(', ') : result.response.text();
         console.log(final)
+        return needsFormatting ? final : ['duration', final];*/
+        let start = array['duration']['start']
+        let end = array['duration']['end']
+        let final = needsFormatting ? `${start.year}-${start.month < 10 ? `0${start.month}` : start.month}-${start.day < 10 ? `0${start.day}` : start.day}, ${end.year}-${end.month < 10 ? `0${end.month}` : end.month}-${end.day < 10 ? `0${end.day}` : end.day}` : `${start.month}/${start.day}/${start.year} - ${end.month}/${end.day}/${end.year}`;
         return needsFormatting ? final : ['duration', final];
     } else {
         let final = [];

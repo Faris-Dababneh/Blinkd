@@ -28,7 +28,7 @@ export const DashboardComponent = () => {
    
   }
 
-  /*useEffect(() => {
+  useEffect(() => {
     const fetchAnswer = async () => {
       if (answers === undefined) {
         let answer = await getAnswers(session)
@@ -39,11 +39,11 @@ export const DashboardComponent = () => {
       }
     }
     fetchAnswer()
-  })*/
+  })
   
 
   return (
-    <div className='flex flex-col pl-44 pt-16 w-5/6 h-screen'>
+    <div className='flex flex-col pl-44 pt-4 w-5/6 h-screen'>
         <Header name={'Dashboard'} description={'Manage your feed preferences and results'}/>
         <div>
             <ShowAnswers />

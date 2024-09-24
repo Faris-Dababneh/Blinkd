@@ -6,6 +6,8 @@ import { BsStack } from "react-icons/bs";
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 
+import AvatarDropdown from "./AvatarDropdown";
+
 function NavbarComponent() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
@@ -66,9 +68,8 @@ import { FaUserCircle } from "react-icons/fa";
 import {Avatar} from "@nextui-org/react";
 
 const NavContent = () => {
-  const {data: session } = useSession();
   const pathname = usePathname();
-
+  const {data: session } = useSession();
   return (
     <>
         {pathname === '/' ? (
@@ -143,59 +144,6 @@ const NavContent = () => {
   )
 }
 
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem, cn} from "@nextui-org/react";
-
-const AvatarDropdown = () => {
-  return (
-    <Dropdown>
-      <DropdownTrigger>
-      <Avatar showFallback src='https://images.unsplash.com/broken' fallback={
-          <FaUserCircle size={30}/>
-        } className="bg-transparent cursor-pointer"/>
-      </DropdownTrigger>
-      <DropdownMenu variant="faded" aria-label="Dropdown menu with description">
-      <DropdownSection title="Actions" showDivider>  
-        <DropdownItem
-            key="new"
-            shortcut="⌘N"
-            description="Create a new file"
-            startContent={<FaUserCircle />}
-          >
-            New file
-          </DropdownItem>
-          <DropdownItem
-            key="copy"
-            shortcut="⌘C"
-            description="Copy the file link"
-            startContent={<FaUserCircle />}
-          >
-            Copy link
-          </DropdownItem>
-          <DropdownItem
-            key="edit"
-            shortcut="⌘⇧E"
-            description="Allows you to edit the file"
-            startContent={<FaUserCircle />}
-          >
-            Edit file
-          </DropdownItem>
-        </DropdownSection>
-        <DropdownSection title="Danger zone">  
-          <DropdownItem
-            key="delete"
-            className="text-danger"
-            color="danger"
-            shortcut="⌘⇧D"
-            description="Permanently delete the file"
-            startContent={<FaUserCircle />}
-          >
-            Delete file
-          </DropdownItem>
-        </DropdownSection>
-      </DropdownMenu>
-    </Dropdown>
-  )
-}
 
 
 
