@@ -2,8 +2,9 @@
 import { db } from "../../firebase.config";
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import {interpretAnswer} from './api/Gemini';
+import { useSession } from 'next-auth/react';
 
-async function saveAnswer(answers, session) {
+async function saveAnswer(session, answers) {
 
   if (session) {
     const userId = session.user.id;
@@ -39,4 +40,20 @@ async function getAnswers(session, needsFormatting) {
   }
 }
 
-export {saveAnswer, getAnswers}; 
+async function getUserProfile(session) {
+  if (session) {
+    const userId = session.user.id
+    try {
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+
+      const email = docSnap.data().email;
+      const image = docSnap.data().image;
+      const name = docSnap.data().name;
+      return [name, image, email];
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export {saveAnswer, getAnswers, getUserProfile}; 
