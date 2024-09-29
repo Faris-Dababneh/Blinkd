@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { getAnswers } from '../../app/database/Firebase'
 import Link from 'next/link'
 import Cookies from 'js-cookie'
+import {Duration} from './questions/Duration'
 
 export const DashboardComponent = () => {
 
@@ -48,7 +49,6 @@ export const DashboardComponent = () => {
         <div>
             <ShowAnswers />
             <Link href='/feed'><Button>Generate Free News Feed</Button></Link>     
-            
             
         </div>
     </div>
