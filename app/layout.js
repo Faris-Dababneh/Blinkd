@@ -7,7 +7,9 @@ import { ColorSchemeScript } from '@mantine/core';
 import { SessionProvider } from "next-auth/react";
 import '@mantine/core/styles.css';
 
+
 const inter = Inter({ subsets: ["latin"] });
+
 
 export default function RootLayout({ children }) {
   return (
@@ -28,6 +30,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
 
 // git add .
 // git commit -m "Message"
