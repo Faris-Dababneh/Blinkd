@@ -19,6 +19,7 @@ function SignUp()
     const {data: session } = useSession();
     const router = useRouter()
 
+    
     // Redirects user if they are already signed in
     useEffect(() => {
         if (session) {
