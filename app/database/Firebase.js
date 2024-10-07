@@ -14,9 +14,25 @@ async function saveAnswer(session, answers) {
     } catch (error) {
       console.log(error)
     }
-    
   }
 };
+
+async function changeAnswer(session, answer, answerName, index) {
+  if (session) {
+    const userId = session.user.id;
+    try {
+      const fieldPath = `answers.${index}.${answerName}`
+      const userRef = doc(db, 'users', userId);
+      await updateDoc(userRef, {
+        [fieldPath]: {
+          answer
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 async function getAnswers(session, needsFormatting) {
 

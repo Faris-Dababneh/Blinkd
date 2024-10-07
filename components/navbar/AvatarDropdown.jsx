@@ -8,7 +8,6 @@ import { MdOutlineSpaceDashboard, MdOutlineSettings, MdOutlineLogout } from "rea
 
 function AvatarDropdown() {
   const { data: session } = useSession();
-  console.log(session)
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {

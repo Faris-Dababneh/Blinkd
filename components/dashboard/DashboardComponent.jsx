@@ -16,7 +16,7 @@ export const DashboardComponent = () => {
 
   function ShowAnswers() {
       return (
-        <div className='flex space-x-10 w-full pb-10'>
+        <div className='flex w-full pb-10'>
         {answers &&
           <>
           {answers.map((item) => (

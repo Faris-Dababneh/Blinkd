@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import {DateRangePicker} from "@nextui-org/react";
 import Cookies from 'js-cookie'
 import {getLocalTimeZone, today, parseDate} from "@internationalized/date";
+import { SaveAnswer } from './SaveAnswer';
 
 export const Duration = () => {
 
@@ -19,7 +20,7 @@ export const Duration = () => {
       }
 
     return (
-        <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4' suppressHydrationWarning={true}>
+        <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4 py-10' suppressHydrationWarning={true}>
             <h1 className='text-black text-center text-2xl sm:text-4xl font-semibold'>How long do you need your news coverage?</h1>
             <p className='py-3 text-center'>Your feed will contain all relevant news during this period.</p>
             <DateRangePicker 
@@ -30,6 +31,7 @@ export const Duration = () => {
                 maxValue={today(getLocalTimeZone())}
                 className='w-full sm:w-1/2 md:w-1/3'
                 />
+              <SaveAnswer />
         </div>
   )
 }
