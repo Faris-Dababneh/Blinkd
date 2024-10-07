@@ -1,6 +1,6 @@
 'use client'
 // IMPROVE ANSWER MODAL APPEARANCE AND IMPLEMENT SAVE FEATURE FOR ANSWER CHANGING
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks';
 import { Button } from '@nextui-org/react';
 import { Duration } from './questions/Duration';
@@ -9,7 +9,7 @@ import { Places } from './questions/Places';
 import { Modal } from '@mantine/core';
 import { MantineProvider } from '@mantine/core';
 
-export const Tile = ({answerName, answer, session}) => {
+export const Tile = ({ answerName, answer, session }) => {
   const [opened, handlers] = useDisclosure(false);
   const [selectedAnswer, setSelectedAnswer] = useState();
   console.log(answerName)
@@ -22,7 +22,7 @@ export const Tile = ({answerName, answer, session}) => {
       case 'interests':
         setSelectedAnswer(<Interests />);
         handlers.open();
-      
+
     }
   }
 
@@ -43,7 +43,7 @@ export const Tile = ({answerName, answer, session}) => {
         <Modal opened={opened} onClose={() => handlers.close()} centered size={'xl'}>
           {selectedAnswer}
         </Modal>
-    
+
       </div>
     </MantineProvider>
   )
