@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import {getLocalTimeZone, today, parseDate} from "@internationalized/date";
 import { MantineProvider } from '@mantine/core';
 import { TagsInput } from '@mantine/core';
+import { SaveAnswer } from './SaveAnswer';
 
 export const Interests = () => {
     let interestsCookie = Cookies.get('interests') ? JSON.parse(Cookies.get('interests')) : null;
@@ -18,7 +19,7 @@ export const Interests = () => {
 
     return (
         <MantineProvider>
-          <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4'>
+          <div className='flex justify-center items-center w-full flex-col overflow-hidden px-4 py-10'>
             <h1 className='text-black text-center text-2xl sm:text-4xl font-semibold'>What news categories are you interested in?</h1>
             <p className='py-3 text-center'>This will help personalize your feed for your liking.</p>
             <TagsInput
@@ -28,9 +29,10 @@ export const Interests = () => {
               value={interests}
               onChange={(event) => interestsChange(event)}
               clearable
-              className='w-3/4 sm:w-1/2 lg:w-1/3'
+              className='w-3/4'
             />
           </div>
+          <SaveAnswer />
         </MantineProvider>
     );
 }
