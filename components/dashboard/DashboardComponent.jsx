@@ -9,6 +9,7 @@ import Link from 'next/link'
 import Cookies from 'js-cookie'
 import {Duration} from './questions/Duration'
 
+
 export const DashboardComponent = () => {
 
   const {data: session } = useSession();
@@ -17,13 +18,15 @@ export const DashboardComponent = () => {
   function ShowAnswers() {
       return (
         <div className='flex w-full pb-10'>
-        {answers &&
+        {answers ? (
           <>
           {answers.map((item) => (
-            <Tile key={item} answerName={item[0]} answer={item}/>
+            <Tile key={item} answerName={item[0]} answer={item} isLoading={false}/>
           ))}
           </>
-        }
+        ) : (
+          <Tile isLoading={true}></Tile>
+        )}
         </div>
       );
    

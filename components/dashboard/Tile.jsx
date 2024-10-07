@@ -8,8 +8,20 @@ import { Interests } from './questions/Interests';
 import { Places } from './questions/Places';
 import { Modal } from '@mantine/core';
 import { MantineProvider } from '@mantine/core';
+import { LoadingOverlay, Group, Box } from '@mantine/core';
 
-export const Tile = ({answerName, answer, session}) => {
+export const Tile = ({answerName, answer, isLoading}) => {
+  if (isLoading) {
+    const [visible, { toggle }] = useDisclosure(true);
+    return (
+      <MantineProvider>
+        <Box pos="relative">
+          <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+          <div className='w-64 h-64 mr-10'></div>
+        </Box>
+      </MantineProvider>
+    );
+  }
   const [opened, handlers] = useDisclosure(false);
   const [selectedAnswer, setSelectedAnswer] = useState();
   console.log(answerName)
@@ -22,7 +34,11 @@ export const Tile = ({answerName, answer, session}) => {
       case 'interests':
         setSelectedAnswer(<Interests />);
         handlers.open();
-      
+        break;
+      case 'places':
+        setSelectedAnswer(<Places />)
+        handlers.open();
+        break;
     }
   }
 
