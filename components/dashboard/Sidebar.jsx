@@ -10,7 +10,7 @@ import { NavLink } from '@mantine/core';
 export const Sidebar = () => {
   const menu = [
     { index: 0, label: 'Dashboard', href: '/dashboard', icon: MdOutlineSpaceDashboard },
-    { index: 1, label: 'Billing', href: '#dashboard', icon: MdOutlineCreditCard },
+    { index: 1, label: 'Billing', href: '/dashboard/billing', icon: MdOutlineCreditCard },
   ]
 
   const options = [

@@ -31,8 +31,8 @@ export const Interests = () => {
               clearable
               className='w-3/4'
             />
+            <SaveAnswer />
           </div>
-          <SaveAnswer />
         </MantineProvider>
     );
 }
