@@ -20,14 +20,20 @@ async function saveAnswer(session, answers) {
 async function changeAnswer(session, answer, answerName, index) {
   if (session) {
     const userId = session.user.id;
+    let final = JSON.parse(answer)
     try {
-      const fieldPath = `answers.${index}.${answerName}`
       const userRef = doc(db, 'users', userId);
-      await updateDoc(userRef, {
-        [fieldPath]: {
-          answer
-        }
-      })
+      const docSnap = await getDoc(userRef)
+      const data = docSnap.data();
+      const answers = data.answers
+      const fieldPath = `answers.${index}.${answerName}`;
+      // ISSUE IS RIGHT HERE - FIGURE OUT HOW TO UPDATE CERTAIN PART OF ANSWERS ARRAY IN FIREBASE - first redo answers to reset db
+      if (answers) {
+        console.log(answers)
+        answers[answerName] = answer
+      }
+      
+     await updateDoc(userRef, {answers})
     } catch (error) {
       console.log(error)
     }
@@ -72,4 +78,4 @@ async function getUserProfile(session) {
     }
   }
 }
-export {saveAnswer, getAnswers, getUserProfile}; 
+export {saveAnswer, getAnswers, getUserProfile, changeAnswer}; 

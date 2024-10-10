@@ -31,7 +31,7 @@ export const Duration = () => {
                 maxValue={today(getLocalTimeZone())}
                 className='w-full sm:w-1/2 md:w-1/3'
                 />
-              <SaveAnswer />
+              <SaveAnswer index={0} answer={duration} answerName={'duration'}/>
         </div>
   )
 }

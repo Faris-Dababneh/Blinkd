@@ -25,7 +25,6 @@ export const Tile = ({ answerName, answer, session, isLoading }) => {
 
   const [opened, handlers] = useDisclosure(false);
   const [selectedAnswer, setSelectedAnswer] = useState();
-  console.log(answerName)
   const openAnswer = (event) => {
     switch (answerName) {
       case 'duration':

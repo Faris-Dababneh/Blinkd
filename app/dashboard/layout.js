@@ -1,6 +1,5 @@
 import React from "react";
 import {Sidebar} from '../../components/dashboard/Sidebar';
-import {DashboardComponent} from '../../components/dashboard/DashboardComponent';
 import AvatarDropdown from "../../components/navbar/AvatarDropdown";
 import {Header} from '../../components/dashboard/Header';
 
