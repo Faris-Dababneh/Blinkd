@@ -4,12 +4,16 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { FirestoreAdapter } from "@auth/firebase-adapter"
 import { cert } from "firebase-admin/app"
 
+
+
 export const options: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
+
+        
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
@@ -36,6 +40,8 @@ export const options: NextAuthOptions = {
             }
         })
     ],
+
+    
     adapter: FirestoreAdapter({
         credential: cert({
           projectId: process.env.AUTH_FIREBASE_PROJECT_ID,
@@ -46,6 +52,8 @@ export const options: NextAuthOptions = {
     /*pages: {
         signIn: "/api/auth/signin"
     },*/
+
+    
     callbacks: {
         async session({ session, token, user }) {
           // Include the user's Firebase UID in the session object
