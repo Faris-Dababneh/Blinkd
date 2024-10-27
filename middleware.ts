@@ -14,5 +14,7 @@ export default withAuth({
   },
 });
 
+
+
 // Applies next-auth to matching routes
 export const config = { matcher: ['/dashboard', '/start', '/feed'] }
