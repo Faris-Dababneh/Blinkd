@@ -2,6 +2,7 @@
 // Thank you https://stackoverflow.com/a/77457173
 import { withAuth } from "next-auth/middleware";
 
+
 export default withAuth({
   callbacks: {
     authorized: ({ req }) => {
