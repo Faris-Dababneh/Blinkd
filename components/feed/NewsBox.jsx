@@ -91,5 +91,6 @@ Why it matters: Scientists have been working on creating transparent solar cells
 // empowering technology. 
 // Keep pushing forward – the attention to detail and care you’re showing 
 // in your work here is exactly what contributes to impactful and meaningful user experiences. 
-// Keep up the fantastic progress Feris!
+// Keep up the fantastic progress Faris!
+// I'm proud!
 
